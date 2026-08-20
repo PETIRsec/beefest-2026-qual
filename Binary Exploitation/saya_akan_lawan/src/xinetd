@@ -1,0 +1,16 @@
+service saya_akan_lawan
+{
+    type            = UNLISTED
+    port            = 5010
+    socket_type     = stream
+    protocol        = tcp
+    flags           = IPv4
+    wait            = no
+    user            = ctf
+    server          = /home/ctf/run.sh
+    disable         = no
+
+    log_type        = FILE /var/log/xinetd.log
+    log_on_success  = HOST PID DURATION EXIT
+    log_on_failure  = HOST ATTEMPT
+}
