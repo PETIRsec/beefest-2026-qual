@@ -1,0 +1,36 @@
+name: "Root Cause"
+category: Cryptography
+description: |-
+    Every equation has its roots, and every root has its symmetry. Hmmm... do we need to multiply the roots to find out?
+
+    Author: AgileOrc
+
+
+##### TIDAK USAH DIGANTI
+value: 500
+type: dynamic
+
+extra:
+    initial: 500
+    decay: 20
+    minimum: 100
+    require_ai_source: true
+    require_solver: true / false
+##### TIDAK USAH DIGANTI
+
+# connection_info: nc 103.185.52.197 port / http://103.185.52.197:port
+
+flags:
+    - BeeCTF{wh3n_y0U_ne3D_b4S1C_4Lgebr4_t0_s0lv3_th1s_ch4lleng3_y4_beg1tul4H_p0k0kny4_ini_4ku_cum4N_m4U_m4njangin_fl4g_d04Ng_4w0KwaWokawkoawk}
+
+tags:
+    - Medium
+
+files:
+    - dist/dist.zip
+
+state: hidden
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"
