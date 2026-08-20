@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  truman-show:
+    build: .
+    ports:
+      - "6007:6007"
+    restart: unless-stopped

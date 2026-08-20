@@ -1,0 +1,15 @@
+service truman
+{
+    type        = UNLISTED
+    port        = 6007
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = truman
+    server      = /home/truman/truman
+    disable     = no
+
+    log_type        = FILE /var/log/xinetd.log
+    log_on_success  = HOST PID DURATION EXIT
+    log_on_failure  = HOST ATTEMPT
+}
