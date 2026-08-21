@@ -4,6 +4,8 @@ description: "Seorang teman memberikan salinan data dari ponselnya untuk dianali
 Selain data percakapan, terdapat sebuah gambar yang diduga menyimpan informasi mengenai alamat wallet yang pernah digunakan.
 
 Bisakah kamu menelusuri artefak yang tersedia, mengidentifikasi wallet yang benar, lalu menemukan request hash terakhir dari transaksi terakhir yang berhubungan dengan game tersebut?
+
+flag format: BEECTF{Last Request hash}
 "
     
 
