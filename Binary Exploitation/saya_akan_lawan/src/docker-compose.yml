@@ -1,0 +1,6 @@
+services:
+  saya-akan-lawan:
+    build: .
+    ports:
+      - "5010:5010"
+    restart: unless-stopped
