@@ -30,7 +30,6 @@ tags:
     - Hard
 
 files:
-    - dist/dist.zip
 
 state: hidden
 
