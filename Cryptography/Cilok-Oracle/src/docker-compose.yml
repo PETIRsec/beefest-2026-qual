@@ -1,0 +1,8 @@
+services:
+  cilok-oracle:
+    build: .
+    restart: unless-stopped
+    environment:
+      - TERM=xterm
+    ports:
+      - "3254:3254"
