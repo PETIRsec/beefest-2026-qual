@@ -1,8 +1,8 @@
-name: "Rahasia Tukang Cilok"
+name: "Cilok-Oracle"
 category: Cryptography
 description: |-
-  Jujur aja, Mang Dadang udah capek jualan cilok ditawar terus. Biar keliatan eksklusif kayak startup, dia sok-sokan nge-enkripsi resep rahasianya pake AES.  
-Masalahnya, dia males baca dokumentasi. Tiap lu nitip adonan lu sendiri, resep aslinya malah kegeser dan kecetak jelas polanya di blok sebelahnya.
+  Jujur aja, Mang Dadang udah capek jualan cilok ditawar terus. Biar keliatan eksklusif kayak startup, dia sok-sokan nge-enkripsi resep rahasianya pake AES.
+  Masalahnya, dia males baca dokumentasi. Tiap lu nitip adonan lu sendiri, resep aslinya malah kegeser dan kecetak jelas polanya di blok sebelahnya.
 
   Author: kyr0
 
