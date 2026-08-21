@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickTeX — Online LaTeX Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: #1e1e1e;
+        }
+
+        .navbar {
+            background: linear-gradient(180deg, #4d7e52 0%, #3d6b42 100%);
+            height: 46px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            color: #fff;
+            justify-content: space-between;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+            cursor: pointer;
+            padding: 5px 8px;
+            border-radius: 3px;
+            transition: background 0.15s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .project-title {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #fff;
+            margin-left: 4px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .nav-action {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 5px 11px;
+            font-size: 12.5px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-action:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 190px;
+            background: #2c3833;
+            color: #b5bfb8;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            border-right: 1px solid #1f2b25;
+        }
+
+        .sidebar-top {
+            padding: 9px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #8a9e8f;
+            border-bottom: 1px solid #3a4d42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-top span:last-child {
+            cursor: pointer;
+            font-size: 16px;
+            color: #6b8570;
+        }
+
+        .sidebar-top span:last-child:hover {
+            color: #a5c4ab;
+        }
+
+        .file-list {
+            padding: 6px 0;
+        }
+
+        .file-entry {
+            padding: 5px 14px;
+            font-size: 12.5px;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: background 0.1s;
+        }
+
+        .file-entry.selected {
+            background: #3f5c47;
+            color: #e4efe6;
+        }
+
+        .file-entry:hover {
+            background: #3a5440;
+        }
+
+        .file-entry .ficon {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .outline-section {
+            margin-top: auto;
+            border-top: 1px solid #3a4d42;
+            padding: 10px 12px;
+        }
+
+        .outline-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8a9e8f;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .outline-empty {
+            font-size: 11.5px;
+            color: #5e7365;
+            line-height: 1.5;
+        }
+
+        .outline-empty a {
+            color: #6dab77;
+            text-decoration: none;
+        }
+
+        .editor-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .editor-toolbar {
+            background: #e2e2e2;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            border-bottom: 1px solid #c5c5c5;
+            flex-shrink: 0;
+        }
+
+        .toolbar-icons {
+            display: flex;
+            gap: 2px;
+            margin-right: 12px;
+        }
+
+        .toolbar-icon-btn {
+            background: none;
+            border: none;
+            padding: 4px 6px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #555;
+            border-radius: 2px;
+        }
+
+        .toolbar-icon-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .source-tabs {
+            display: flex;
+            border-left: 1px solid #ccc;
+            padding-left: 8px;
+        }
+
+        .source-tab {
+            padding: 7px 14px;
+            font-size: 12.5px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #777;
+            position: relative;
+            font-weight: 400;
+            transition: color 0.15s;
+        }
+
+        .source-tab.active {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .source-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 4px;
+            right: 4px;
+            height: 2px;
+            background: #4d7e52;
+            border-radius: 1px;
+        }
+
+        .omega-btn {
+            margin-left: auto;
+            font-size: 15px;
+            color: #666;
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+
+        .file-tab-bar {
+            background: #ececec;
+            height: 30px;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 6px;
+            border-bottom: 1px solid #d0d0d0;
+            flex-shrink: 0;
+        }
+
+        .file-tab {
+            padding: 4px 12px;
+            font-size: 11.5px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #fff;
+            border-radius: 3px 3px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #444;
+            position: relative;
+            bottom: -1px;
+        }
+
+        .file-tab .tab-icon {
+            color: #4d7e52;
+            font-size: 11px;
+        }
+
+        .file-tab .tab-menu {
+            font-size: 14px;
+            color: #999;
+            cursor: pointer;
+            margin-left: 6px;
+            line-height: 1;
+        }
+
+        .editor-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            background: #fafafa;
+        }
+
+        .gutter {
+            width: 50px;
+            background: #f3f3f3;
+            padding: 10px 0;
+            text-align: right;
+            font-family: 'Source Code Pro', 'Consolas', monospace;
+            font-size: 12.5px;
+            line-height: 20px;
+            color: #b0b0b0;
+            overflow: hidden;
+            user-select: none;
+            flex-shrink: 0;
+            border-right: 1px solid #e3e3e3;
+        }
+
+        .gutter .ln {
+            padding-right: 10px;
+            height: 20px;
+        }
+
+        .code-editor {
+            flex: 1;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: 'Source Code Pro', 'Consolas', monospace;
+            font-size: 12.5px;
+            line-height: 20px;
+            padding: 10px 14px;
+            color: #333;
+            tab-size: 4;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+            background: #fafafa;
+        }
+
+        .code-editor:focus {
+            background: #fff;
+        }
+
+        .pane-divider {
+            width: 5px;
+            background: #bbb;
+            cursor: col-resize;
+            flex-shrink: 0;
+            transition: background 0.15s;
+        }
+
+        .pane-divider:hover {
+            background: #4d7e52;
+        }
+
+        .preview-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .preview-toolbar {
+            background: #e2e2e2;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 6px;
+            border-bottom: 1px solid #c5c5c5;
+            flex-shrink: 0;
+        }
+
+        .recompile-group {
+            display: flex;
+        }
+
+        .recompile-btn {
+            background: #138a07;
+            color: #fff;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 3px 0 0 3px;
+            font-size: 12.5px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.15s;
+        }
+
+        .recompile-btn:hover {
+            background: #0f7505;
+        }
+
+        .recompile-btn:active {
+            background: #0c6004;
+        }
+
+        .recompile-drop {
+            background: #138a07;
+            color: #fff;
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 5px 7px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            font-size: 9px;
+            transition: background 0.15s;
+        }
+
+        .recompile-drop:hover {
+            background: #0f7505;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 4px;
+            margin-left: 6px;
+        }
+
+        .preview-icon-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 2px;
+        }
+
+        .preview-icon-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .compile-status {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .compile-spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #ccc;
+            border-top-color: #4d7e52;
+            border-radius: 50%;
+            animation: rotate 0.7s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .preview-body {
+            flex: 1;
+            background: #4a4a4a;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 12px;
+        }
+
+        .preview-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .preview-placeholder {
+            color: #999;
+            text-align: center;
+            margin-top: 120px;
+            font-size: 13.5px;
+            line-height: 2;
+        }
+
+        .preview-placeholder b {
+            color: #bbb;
+        }
+
+        .error-output {
+            background: #1e1e1e;
+            color: #e06c75;
+            padding: 14px 16px;
+            font-family: 'Source Code Pro', 'Consolas', monospace;
+            font-size: 11.5px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow: auto;
+            flex: 1;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="nav-left">
+            <button class="nav-btn">☰ Menu</button>
+            <span class="project-title">MATH6025 - Discrete Mathematics</span>
+        </div>
+        <div class="nav-right">
+            <button class="nav-action">Review</button>
+            <button class="nav-action">Share</button>
+            <button class="nav-action">Submit</button>
+            <button class="nav-action">History</button>
+            <button class="nav-action">Layout ▾</button>
+            <button class="nav-action">Chat</button>
+        </div>
+    </div>
+
+    <div class="workspace">
+
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <span>Files</span>
+                <span>+</span>
+            </div>
+            <div class="file-list">
+                <div class="file-entry selected">
+                    <span class="ficon">📄</span>
+                    <span>main.tex</span>
+                </div>
+            </div>
+            <div class="outline-section">
+                <div class="outline-title">▾ File outline</div>
+                <div class="outline-empty">
+                    We can't find any sections or subsections in this file.<br>
+                    <a href="#">Find out more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-pane">
+            <div class="editor-toolbar">
+                <div class="toolbar-icons">
+                    <button class="toolbar-icon-btn">📄</button>
+                    <button class="toolbar-icon-btn">✏️</button>
+                    <button class="toolbar-icon-btn">⚙️</button>
+                </div>
+                <div class="source-tabs">
+                    <button class="source-tab active">Source</button>
+                    <button class="source-tab">Rich Text</button>
+                </div>
+                <span class="omega-btn">Ω</span>
+            </div>
+            <div class="file-tab-bar">
+                <div class="file-tab">
+                    <span class="tab-icon">📄</span>
+                    <span>main.tex</span>
+                    <span class="tab-menu">⋮</span>
+                </div>
+            </div>
+            <div class="editor-body">
+                <div class="gutter" id="gutter"></div>
+                <textarea class="code-editor" id="editor" spellcheck="false">\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Introduction to Discrete Mathematics}
+\author{Sample Document}
+\date{\today}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\maketitle
+
+\section{Sets}
+
+A set is a collection of distinct objects.
+
+\[
+A = \{1,2,3,4,5\}
+\]
+
+\[
+B = \{3,4,5,6,7\}
+\]
+
+The union and intersection are
+
+\[
+A \cup B = \{1,2,3,4,5,6,7\}
+\]
+
+\[
+A \cap B = \{3,4,5\}
+\]
+
+\section{Logic}
+
+Consider the propositions:
+
+\[
+p : \text{"It is raining"}
+\]
+
+\[
+q : \text{"I carry an umbrella"}
+\]
+
+The implication is
+
+\[
+p \rightarrow q
+\]
+
+Truth table:
+
+\[
+\begin{array}{c|c|c}
+p & q & p \rightarrow q\\
+\hline
+T & T & T\\
+T & F & F\\
+F & T & T\\
+F & F & T
+\end{array}
+\]
+
+\section{Functions}
+
+Define
+
+\[
+f(x)=x^2+2x+1
+\]
+
+Evaluating at \(x=3\),
+
+\[
+f(3)=3^2+2(3)+1=16
+\]
+
+\section{Summations}
+
+The sum of the first \(n\) integers is
+
+\[
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+\]
+
+For example,
+
+\[
+\sum_{i=1}^{10} i = 55
+\]
+
+\section{Proof Example}
+
+\begin{theorem}
+The sum of two even integers is even.
+\end{theorem}
+
+\begin{proof}
+Let
+
+\[
+a = 2m,\qquad b = 2n
+\]
+
+where \(m,n \in \mathbb{Z}\).
+
+Then
+
+\[
+a+b = 2m+2n = 2(m+n).
+\]
+
+Since \(m+n\) is an integer, \(a+b\) is divisible by 2, hence even.
+\end{proof}
+
+\section{Relations}
+
+A relation on a set \(A\) is a subset of \(A \times A\).
+
+Example:
+
+\[
+R = \{(1,1),(2,2),(3,3)\}
+\]
+
+This relation is reflexive.
+
+\section{Graph Theory}
+
+A graph is defined as
+
+\[
+G=(V,E)
+\]
+
+where
+
+\[
+V=\{A,B,C,D\}
+\]
+
+and
+
+\[
+E=\{\{A,B\},\{A,C\},\{B,D\},\{C,D\}\}.
+\]
+
+The degree of vertex \(A\) is
+
+\[
+\deg(A)=2.
+\]
+
+\section{Combinatorics}
+
+The binomial coefficient is
+
+\[
+\binom{n}{k}
+=
+\frac{n!}{k!(n-k)!}
+\]
+
+Example:
+
+\[
+\binom{5}{2}=10
+\]
+
+The number of permutations is
+
+\[
+P(n,r)=\frac{n!}{(n-r)!}
+\]
+
+\section{Recurrence Relations}
+
+Consider the Fibonacci sequence:
+
+\[
+F_n = F_{n-1}+F_{n-2}
+\]
+
+with
+
+\[
+F_0=0,\qquad F_1=1.
+\]
+
+The first few values are
+
+\[
+0,1,1,2,3,5,8,13,\ldots
+\]
+
+\section{Conclusion}
+
+Discrete mathematics forms the foundation of computer science, including algorithms, cryptography, graph theory, logic, and combinatorics.
+
+\end{document}</textarea>
+            </div>
+        </div>
+
+        <div class="pane-divider"></div>
+
+        <div class="preview-pane">
+            <div class="preview-toolbar">
+                <div class="recompile-group">
+                    <button class="recompile-btn" id="compileBtn" onclick="compileDocument()">▶ Recompile</button>
+                    <button class="recompile-drop">▾</button>
+                </div>
+                <div class="preview-actions">
+                    <button class="preview-icon-btn">💾</button>
+                    <button class="preview-icon-btn">⬇️</button>
+                </div>
+                <div class="compile-status" id="compileStatus">
+                    <div class="compile-spinner"></div>
+                    <span>Compiling…</span>
+                </div>
+            </div>
+            <div class="preview-body" id="previewArea">
+                <div class="preview-placeholder">
+                    Press <b>Recompile</b> to compile your document.<br>
+                    Or use <b>Ctrl + Enter</b>.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var editor = document.getElementById('editor');
+        var gutter = document.getElementById('gutter');
+
+        function refreshGutter() {
+            var count = editor.value.split('\n').length;
+            var html = '';
+            for (var i = 1; i <= count; i++) {
+                html += '<div class="ln">' + i + '</div>';
+            }
+            gutter.innerHTML = html;
+        }
+
+        editor.addEventListener('input', refreshGutter);
+        editor.addEventListener('scroll', function () {
+            gutter.scrollTop = editor.scrollTop;
+        });
+
+        editor.addEventListener('keydown', function (e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 4;
+                refreshGutter();
+            }
+
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                compileDocument();
+            }
+        });
+
+        refreshGutter();
+
+        function compileDocument() {
+            var btn = document.getElementById('compileBtn');
+            var status = document.getElementById('compileStatus');
+            var preview = document.getElementById('previewArea');
+            var code = editor.value;
+
+            btn.style.display = 'none';
+            status.style.display = 'flex';
+
+            fetch('/compile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code })
+            })
+                .then(function (res) {
+                    if (res.ok) {
+                        return res.blob().then(function (blob) {
+                            var url = URL.createObjectURL(blob);
+                            preview.innerHTML = '<iframe src="' + url + '#toolbar=0"></iframe>';
+                        });
+                    } else {
+                        return res.json().then(function (data) {
+                            preview.innerHTML = '<div class="error-output">' + escapeHtml(data.log) + '</div>';
+                        });
+                    }
+                })
+                .catch(function (err) {
+                    preview.innerHTML = '<div class="error-output">Request failed: ' + escapeHtml(err.message) + '</div>';
+                })
+                .finally(function () {
+                    btn.style.display = 'flex';
+                    status.style.display = 'none';
+                });
+        }
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+
+</body>
+
+</html>
