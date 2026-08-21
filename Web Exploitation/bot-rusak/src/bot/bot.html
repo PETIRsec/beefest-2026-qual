@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETIR BOT Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #eab308; /* Electric Yellow */
+            --primary-hover: #ca8a04;
+            --border: #334155;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px rgba(234, 179, 8, 0.4));
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: #0f172a;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.2);
+        }
+
+        input::placeholder {
+            color: #475569;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            background-color: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #result {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img class="logo" src="https://avatars.githubusercontent.com/u/169334794?s=200&v=4" alt="Petir Logo">
+        </div>
+        <h1>PETIR BOT</h1>
+        <p>Enter a URL address to initiate the rapid automated evaluation protocol.</p>
+        
+        <div class="input-group">
+            <input type="text" id="url" placeholder="http://chall/?message=PETIR" pattern="^http" required>
+        </div>
+        
+        <button id="submit">Launch Bot</button>
+        <span id="result"></span>
+    </div>
+
+    <script>
+        const submit = document.getElementById('submit');
+        const result = document.getElementById('result');
+        const urlInput = document.getElementById('url');
+
+        submit.onclick = () => {
+            submit.disabled = true;
+            result.innerText = '⚡ Petir Bot is striking the URL...';
+            result.style.color = 'var(--text-muted)';
+            
+            setTimeout(() => {
+                submit.disabled = false;
+            }, 5000);
+
+            fetch('/report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    url: urlInput.value,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    result.innerText = `Strike Failed: ${data.error}`;
+                    result.style.color = 'var(--error)';
+                } else {
+                    result.innerText = '⚡ Success: Inspection finished.';
+                    result.style.color = 'var(--primary)';
+                }
+            })
+            .catch(err => {
+                result.innerText = 'Connection broken mid-strike!';
+                result.style.color = 'var(--error)';
+            });
+        };
+    </script>
+</body>
+</html>
