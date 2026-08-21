@@ -1,0 +1,39 @@
+name: "Aula"
+category: Reverse Engineering
+description: |-
+    A lecturer left her phone on the desk. You are a student, you have your own
+    app, and one run on her device before the screen is photographed and handed
+    back to you. Everything the examinations board decided is on that phone and
+    none of it is meant to reach you yet. Get it on screen.
+
+    Grab the two APKs, reverse them, and write your own zero-permission APK that
+    walks the whole way across the device. The range installs both apps, runs
+    yours once, and gives you the screenshot.
+
+    Author: lawbyte
+
+value: 500
+type: dynamic
+extra:
+    initial: 500
+    decay: 20
+    minimum: 100
+    require_ai_source: true
+    require_solver: true
+
+connection_info: http://103.185.52.197:5000/
+
+flags:
+    - BeeCTF{w3bv13w_dex_2_n4t1v3_l34k_2_s3lf_ch4ng1ng_bundl3}
+
+tags:
+    - Hard
+
+files:
+    - dist/dist.zip
+
+state: hidden
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"
