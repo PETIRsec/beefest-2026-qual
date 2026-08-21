@@ -1,5 +1,5 @@
 name: "BTW I Use Arch"
-category: Forensic
+category: Digital Forensic
 description: |-
     Seorang developer melaporkan workstation Arch Linux-nya "kerasa aneh" setelah install tool dari AUR buat mempercepat workflow-nya. Tim IR udah ambil image dari sistemnya sebelum di-wipe.
     Rekonstruksi apa yang sebenarnya terjadi, dan temukan flag yang ditinggalkan penyerang
