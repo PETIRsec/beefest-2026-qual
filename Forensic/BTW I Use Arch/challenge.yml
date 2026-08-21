@@ -1,0 +1,40 @@
+name: "BTW I Use Arch"
+category: Forensic
+description: |-
+    Seorang developer melaporkan workstation Arch Linux-nya "kerasa aneh" setelah install tool dari AUR buat mempercepat workflow-nya. Tim IR udah ambil image dari sistemnya sebelum di-wipe.
+    Rekonstruksi apa yang sebenarnya terjadi, dan temukan flag yang ditinggalkan penyerang
+
+    file: https://drive.google.com/file/d/1eLH00FAo4BpMFk-_4ITg-4BmBXUlCkn2/view?usp=sharing
+    
+    password : tolong_arch_nya_di_anukan_dulu
+
+    Author: darflashxd
+
+
+##### TIDAK USAH DIGANTI
+value: 500
+type: dynamic
+
+extra:
+    initial: 500
+    decay: 20
+    minimum: 100
+    require_ai_source: true
+    require_solver: true / false
+##### TIDAK USAH DIGANTI
+
+# connection_info: nc 103.185.52.197 port / http://103.185.52.197:port
+
+flags:
+    - BeeCTF{i_Us3_Arch_by_the_w4y10101110001010101001100100101010}
+
+tags:
+    - Hard
+
+files: []
+
+state: hidden
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"
