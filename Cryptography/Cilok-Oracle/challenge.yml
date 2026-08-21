@@ -23,6 +23,6 @@ flags:
 tags:
   - easy
 
-state: visible
+state: hidden
 
 version: "0.1"
