@@ -20,7 +20,7 @@ extra:
     decay: 20
     minimum: 100
     require_ai_source: true
-    require_solver: true / false
+    require_solver: false
 ##### TIDAK USAH DIGANTI
 
 # connection_info: nc 103.185.52.197 port / http://103.185.52.197:port
