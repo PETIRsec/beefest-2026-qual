@@ -1,0 +1,37 @@
+name: "KETEMUU"
+category: Digital Forensic
+description: |-
+    Seorang teman memberikan salinan data dari ponselnya untuk dianalisis. Berdasarkan ceritanya, dahulu ia pernah membeli token melalui percakapan chat, kemudian menggunakan token tersebut untuk membeli beberapa item di sebuah game. Sudah cukup lama sejak terakhir kali ia bermain, dan seluruh aset yang tersisa juga telah ditarik.
+    Selain data percakapan, terdapat sebuah gambar yang diduga menyimpan informasi mengenai alamat wallet yang pernah digunakan.
+
+    Bisakah kamu menelusuri artefak yang tersedia, mengidentifikasi wallet yang benar, lalu menemukan request hash terakhir dari transaksi terakhir yang berhubungan dengan game tersebut?
+
+    flag format: BEECTF{Last Request hash}
+
+author: HSFN
+
+
+value: 500
+type: dynamic
+
+extra:
+    initial: 500
+    decay: 20
+    minimum: 100
+    require_ai_source: true
+    require_solver: true
+
+flags:
+    - BEECTF{0xed3404d2b122c4eb74d524b71c9424b3eb97580b530257884a96df09237038a5}
+
+tags:
+    - Easy 
+
+files:
+    - Dist/Apa_yah_Chall.img
+
+state: hidden
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"
