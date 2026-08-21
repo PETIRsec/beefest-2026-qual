@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  chall:
+    build: ./chall
+    restart: always
+
+  bot:
+    build: ./bot
+    restart: unless-stopped
+    ports:
+      - "6969:6969"
+    environment:
+      - CHALL=http://chall/
+    depends_on:
+      - chall
