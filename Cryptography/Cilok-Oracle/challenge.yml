@@ -1,0 +1,28 @@
+name: "Rahasia Tukang Cilok"
+category: Cryptography
+description: |-
+  Jujur aja, Mang Dadang udah capek jualan cilok ditawar terus. Biar keliatan eksklusif kayak startup, dia sok-sokan nge-enkripsi resep rahasianya pake AES.  
+Masalahnya, dia males baca dokumentasi. Tiap lu nitip adonan lu sendiri, resep aslinya malah kegeser dan kecetak jelas polanya di blok sebelahnya.
+
+  Author: kyr0
+
+connection_info: nc 103.185.52.197 3254
+
+##### DON'T CHANGE
+value: 500
+type: dynamic
+extra:
+    initial: 500
+    decay: 30
+    minimum: 100
+##### DON'T CHANGE
+
+flags:
+  - BEECTF{ny1c1l_s4tu_byt3_p3r_s4tu_byt3_k4y4k_ny1c1l_p1nj0l_y4_b4n9_7a9f2c1b}
+
+tags:
+  - easy
+
+state: visible
+
+version: "0.1"
