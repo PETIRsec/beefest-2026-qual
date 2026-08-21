@@ -1,0 +1,36 @@
+name: "Flux Capacitor"
+category: Reverse Engineering
+description: |-
+    The Flux Capacitor in Dr. Brown's old car is acting up, leaving him stuck in the wrong timeline.
+    Maybe the “data” inside it can help him get the DeLorean running again.
+
+
+    Author: c0smic
+
+
+##### TIDAK USAH DIGANTI
+value: 500
+type: dynamic
+
+extra:
+    initial: 500
+    decay: 20
+    minimum: 100
+    require_ai_source: true (biarin true aja, apus dalem kurung ini)
+    require_solver: true / false
+##### TIDAK USAH DIGANTI
+
+flags:
+    - BeeCTF{flUx_cApAc1t0r_d3crYpt3d_sUcc3ss_djb21s34sy}
+
+tags:
+    - Medium
+
+files:
+    - dist/dist.zip
+
+state: visible
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"
