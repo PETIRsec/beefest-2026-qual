@@ -1,0 +1,33 @@
+name: "zzzz"
+category: Reverse Engineering
+description: |-
+  im sleepy, im gonna let it run while im sleepin. hmmm, those squares... feels like... there's something...
+
+  Author: 🦦
+
+##### TIDAK USAH DIGANTI
+value: 500
+type: dynamic
+
+extra:
+  initial: 500
+  decay: 20
+  minimum: 100
+  require_ai_source: true
+  require_solver: true
+##### TIDAK USAH DIGANTI
+
+flags:
+  - BeeCTF{7h3_wh33l_g035_r0und_r0und_r0und_py7h0n15un1qu3_50m371m35}
+
+tags:
+  - Easy
+
+files:
+  - dist/zzzz.scr
+
+state: visible
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"

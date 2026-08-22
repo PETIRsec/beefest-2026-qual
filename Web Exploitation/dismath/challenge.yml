@@ -1,0 +1,36 @@
+name: "MATH6025 - Discrete Mathematics"
+category: Web Exploitation
+description: |-
+    "Solve this math assigment" Then my ai proceeds to use some weird markup language for my math assigment. I asked the ai to make me a website so that i can use this language for my future assigment. Let's hope there's no naughty highschooler that will inject my site lol
+
+    Author: sierra
+
+
+##### TIDAK USAH DIGANTI
+value: 500
+type: dynamic
+
+extra:
+    initial: 500
+    decay: 20
+    minimum: 100
+    require_ai_source: true
+    require_solver: false
+##### TIDAK USAH DIGANTI
+
+connection_info: http://103.185.52.197:6767
+
+flags:
+    - BeeCTF{Duh_dismathlagi_dismathLagi_disssnutz_hehehehheeh_galucu_ya:(}
+
+tags:
+    - Easy
+
+files:
+
+
+state: visible
+
+# Specifies what version of the challenge specification was used.
+# Subject to change until ctfcli v1.0.0
+version: "0.1"

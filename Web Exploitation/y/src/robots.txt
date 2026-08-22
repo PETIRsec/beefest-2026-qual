@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /backup/
+Disallow: /old/
+Disallow: /config/
+Disallow: /.git/
+Disallow: /debug/
+Disallow: /uploads/
+Disallow: /app/keys/

@@ -1,0 +1,6 @@
+services:
+  quicktex:
+    build: .
+    ports:
+      - "6767:1337"
+    restart: unless-stopped
