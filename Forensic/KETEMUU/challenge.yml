@@ -6,7 +6,7 @@ description: |-
 
     Bisakah kamu menelusuri artefak yang tersedia, mengidentifikasi wallet yang benar, lalu menemukan request hash terakhir dari transaksi terakhir yang berhubungan dengan game tersebut?
 
-    flag format: BEECTF{Last Request hash}
+    flag format: BeeCTF{Last Request hash}
 
 author: HSFN
 
